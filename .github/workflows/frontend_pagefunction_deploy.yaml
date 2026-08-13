@@ -24,7 +24,7 @@ jobs:
             echo "has_config=false" >> $GITHUB_OUTPUT
           fi
         env:
-          PAGE_TOML: ${{ secrets.PAGE_TOML }}
+          PAGE_TOML: ${{ vars.PAGE_TOML }}
 
   deploy:
     needs: check
@@ -51,7 +51,7 @@ jobs:
           pnpm install --no-frozen-lockfile
           pnpm build:pages
           cd ../pages/
-          echo '${{ secrets.PAGE_TOML }}' > wrangler.toml
+          echo '${{ vars.PAGE_TOML }}' > wrangler.toml
           pnpm install --no-frozen-lockfile
           pnpm run deploy
           echo "Deploying production for ${{ github.ref_name }}"
