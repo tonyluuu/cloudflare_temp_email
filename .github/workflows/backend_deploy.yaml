@@ -48,7 +48,7 @@ jobs:
             cd ..
           fi
 
-          export debug_mode=${{ secrets.DEBUG_MODE }}
+          export debug_mode=${{ vars.DEBUG_MODE }}
           export use_mail_wasm_parser=${{ secrets.BACKEND_USE_MAIL_WASM_PARSER }}
           
           cd worker/
