@@ -95,10 +95,10 @@ jobs:
           echo "📦 Running D1 database migrations..."
           
           # 检查 schema.sql 是否存在
-          if [ -f "db/schema.sql" ]; then
-            echo "Found db/schema.sql, executing..."
+          if [ -f "../db/schema.sql" ]; then
+            echo "Found ../db/schema.sql, executing..."
             npx wrangler d1 execute "$D1_DATABASE_NAME" \
-              --file=db/schema.sql \
+              --file=../db/schema.sql \
               --remote
           elif [ -d "migrations" ]; then
             echo "Found migrations directory, applying..."
