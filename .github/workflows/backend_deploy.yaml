@@ -10,6 +10,38 @@ on:
   workflow_dispatch:
 
 jobs:
+  # 新增调试 job 查看sql文件位置
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        
+      - name: Debug Project Structure
+        run: |
+          echo "=== Project Structure ==="
+          echo "Root:"
+          ls -la
+          echo ""
+          echo "worker/:"
+          ls -la worker/ || echo "worker/ not found"
+          echo ""
+          echo "frontend/:"
+          ls -la frontend/ || echo "frontend/ not found"
+          echo ""
+          echo "All .sql files:"
+          find . -name "*.sql" -type f
+          echo ""
+          echo "All migrations:"
+          find . -type d -name "migrations"
+          echo ""
+          echo "worker/package.json:"
+          cat worker/package.json 2>/dev/null | head -50 || echo "not found"
+          echo ""
+          echo "GitHub Variables:"
+          echo "D1_DATABASE_NAME: ${{ vars.D1_DATABASE_NAME || 'NOT SET' }}"
+          echo "BACKEND_TOML: ${{ vars.BACKEND_TOML || 'NOT SET' }}"
+  # 原有的 deploy job
   deploy:
     runs-on: ubuntu-latest
     permissions:
